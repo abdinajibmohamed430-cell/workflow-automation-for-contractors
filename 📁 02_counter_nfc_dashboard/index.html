@@ -92,7 +92,134 @@
       cursor: progress;
       animation: none;
     }
-    .review[hidden] { display: none; }
+    .review[hidden],
+    .stamp[hidden],
+    .telemetry[hidden] { display: none; }
+    .telemetry {
+      margin: 0 0 18px;
+      padding: 14px 14px 12px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: #0d1015;
+    }
+    .telemetry-label,
+    .stamp-label {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .telemetry-count {
+      margin: 4px 0 8px;
+      font-family: Georgia, "Iowan Old Style", serif;
+      font-size: 2.4rem;
+      line-height: 1;
+    }
+    .stamps {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .stamps i {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 1px solid var(--gold);
+      background: transparent;
+    }
+    .stamps i.filled { background: var(--gold); }
+    .stamp {
+      width: 100%;
+      margin-top: 12px;
+      min-height: 56px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      border: 1px solid var(--gold);
+      background: transparent;
+      color: var(--gold);
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .stamp:focus-visible,
+    .pin-keys button:focus-visible,
+    .pin-cancel:focus-visible {
+      outline: 3px solid #fff;
+      outline-offset: 3px;
+    }
+    .pin-sheet {
+      position: fixed;
+      inset: 0;
+      z-index: 30;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      background: rgba(7, 8, 11, 0.72);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .pin-sheet.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .pin-panel {
+      width: min(420px, 100%);
+      padding: 22px 18px 28px;
+      border-radius: 24px 24px 0 0;
+      border: 1px solid var(--line);
+      background: #12151a;
+      transform: translateY(110%);
+      transition: transform 0.35s ease;
+    }
+    .pin-sheet.open .pin-panel { transform: none; }
+    .pin-panel h2 {
+      margin: 0;
+      font-size: 1.25rem;
+    }
+    .pin-status {
+      min-height: 2.6em;
+      margin: 8px 0 14px;
+      color: var(--muted);
+    }
+    .pin-dots {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .pin-dots i {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 1px solid var(--gold);
+    }
+    .pin-dots i.filled { background: var(--gold); }
+    .pin-keys {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .pin-keys button,
+    .pin-cancel {
+      min-height: 52px;
+      border: 0;
+      border-radius: 14px;
+      background: #1c2128;
+      color: var(--text);
+      font: inherit;
+      font-size: 1.2rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .pin-cancel {
+      width: 100%;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 1rem;
+    }
     @keyframes pulse {
       0%, 100% { transform: scale(1); box-shadow: 0 12px 28px rgba(240, 212, 138, 0.22); }
       50% { transform: scale(1.035); box-shadow: 0 18px 40px rgba(240, 212, 138, 0.45); }
@@ -160,9 +287,25 @@
     <h1 id="business-name">JibAuto Systems</h1>
     <p class="address" id="address" hidden></p>
     <p class="support" id="support-line">One NFC tap opens the Google review for the restaurant on the counter.</p>
+    <section class="telemetry" id="telemetry" hidden>
+      <p class="telemetry-label">Check-ins on this device</p>
+      <p class="telemetry-count" id="checkin-count">0</p>
+      <p class="stamp-label" id="stamp-label">Verified stamps</p>
+      <div class="stamps" id="stamp-row" aria-hidden="true"></div>
+    </section>
     <button type="button" class="review" id="review-button" hidden>⭐⭐⭐⭐⭐ Leave a Quick 5-Star Review</button>
+    <button type="button" class="stamp" id="stamp-button" hidden>Tap to Verify Stamp</button>
     <ul class="showcase" id="showcase" aria-label="Client review pages"></ul>
   </main>
+  <div class="pin-sheet" id="pin-sheet" hidden>
+    <div class="pin-panel" role="dialog" aria-modal="true" aria-labelledby="pin-title">
+      <h2 id="pin-title">Staff PIN</h2>
+      <p class="pin-status" id="pin-status" aria-live="polite">Ask the cashier to enter the 4-digit code.</p>
+      <div class="pin-dots" id="pin-dots" aria-hidden="true"></div>
+      <div class="pin-keys" id="pin-keys"></div>
+      <button type="button" class="pin-cancel" id="pin-cancel">Cancel</button>
+    </div>
+  </div>
   <div class="overlay" id="loading-overlay" hidden>
     <div class="loader">
       <div class="spinner" aria-hidden="true"></div>
