@@ -1,6 +1,6 @@
 const BUSINESS_NAME = "The Lotus Restaurant in Minneapolis";
 const SUPPORT_LINE = "Your support keeps us cooking! Tap below to share your experience.";
-const REVIEW_URL = "https://google.com";
+const REVIEW_URL = "https://search.google.com/local/writereview?placeid=ChIJWUEQhb8ys1IRjCHmPOynASE";
 const REDIRECT_DELAY_MILLISECONDS = 700;
 
 const businessName = document.getElementById("business-name");
