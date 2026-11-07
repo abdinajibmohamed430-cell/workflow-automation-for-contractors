@@ -4,7 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#07080b">
-  <title>The Minneapolis Culinary Hub</title>
+  <meta name="description" content="Leave a 5-star review for The Lotus Restaurant in Minneapolis.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="jibauto.net">
+  <meta property="og:title" content="The Lotus Restaurant in Minneapolis">
+  <meta property="og:description" content="Tap once to leave a 5-star review for The Lotus Restaurant in Minneapolis.">
+  <meta property="og:url" content="https://jibauto.net">
+  <link rel="canonical" href="https://jibauto.net">
+  <title>The Lotus Restaurant in Minneapolis</title>
   <style>
     :root {
       color-scheme: dark;
@@ -72,15 +79,17 @@
       cursor: pointer;
       box-shadow: 0 12px 28px rgba(240, 212, 138, 0.28);
       animation: pulse 1.8s ease-in-out infinite;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
     .review:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 18px 36px rgba(240, 212, 138, 0.38);
+      filter: brightness(1.06);
     }
     .review:focus-visible {
       outline: 3px solid #fff;
       outline-offset: 3px;
+    }
+    .review:disabled {
+      cursor: progress;
+      animation: none;
     }
     @keyframes pulse {
       0%, 100% { transform: scale(1); box-shadow: 0 12px 28px rgba(240, 212, 138, 0.22); }
@@ -122,8 +131,8 @@
 </head>
 <body>
   <main class="card">
-    <p class="eyebrow">Downtown Plaza</p>
-    <h1 id="business-name">The Minneapolis Culinary Hub | Downtown Plaza</h1>
+    <p class="eyebrow">Minneapolis</p>
+    <h1 id="business-name">The Lotus Restaurant in Minneapolis</h1>
     <p class="support" id="support-line">Your support keeps us cooking! Tap below to share your experience.</p>
     <button type="button" class="review" id="review-button">⭐⭐⭐⭐⭐ Leave a Quick 5-Star Review</button>
   </main>

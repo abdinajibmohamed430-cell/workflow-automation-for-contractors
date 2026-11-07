@@ -1,4 +1,4 @@
-const BUSINESS_NAME = "The Minneapolis Culinary Hub | Downtown Plaza";
+const BUSINESS_NAME = "The Lotus Restaurant in Minneapolis";
 const SUPPORT_LINE = "Your support keeps us cooking! Tap below to share your experience.";
 const REVIEW_URL = "https://google.com";
 const REDIRECT_DELAY_MILLISECONDS = 700;
