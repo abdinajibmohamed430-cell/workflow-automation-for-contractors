@@ -4,14 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#07080b">
-  <meta name="description" content="Leave a 5-star review for The Lotus Restaurant in Minneapolis.">
+  <meta name="description" content="JibAuto Systems opens a restaurant's Google review from one NFC tap.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="jibauto.net">
-  <meta property="og:title" content="The Lotus Restaurant in Minneapolis">
-  <meta property="og:description" content="Tap once to leave a 5-star review for The Lotus Restaurant in Minneapolis.">
+  <meta property="og:title" content="JibAuto Systems">
+  <meta property="og:description" content="One NFC tap opens the Google review for the restaurant on the counter.">
   <meta property="og:url" content="https://jibauto.net">
   <link rel="canonical" href="https://jibauto.net">
-  <title>The Lotus Restaurant in Minneapolis</title>
+  <title>JibAuto Systems</title>
   <style>
     :root {
       color-scheme: dark;
@@ -59,11 +59,14 @@
       font-weight: 700;
       line-height: 1.15;
     }
+    .address,
     .support {
-      margin: 0 0 28px;
+      margin: 0;
       color: var(--muted);
       line-height: 1.45;
     }
+    .address { margin-bottom: 8px; }
+    .support { margin-bottom: 28px; }
     .review {
       width: 100%;
       min-height: 84px;
@@ -80,9 +83,7 @@
       box-shadow: 0 12px 28px rgba(240, 212, 138, 0.28);
       animation: pulse 1.8s ease-in-out infinite;
     }
-    .review:hover {
-      filter: brightness(1.06);
-    }
+    .review:hover { filter: brightness(1.06); }
     .review:focus-visible {
       outline: 3px solid #fff;
       outline-offset: 3px;
@@ -91,9 +92,33 @@
       cursor: progress;
       animation: none;
     }
+    .review[hidden] { display: none; }
     @keyframes pulse {
       0%, 100% { transform: scale(1); box-shadow: 0 12px 28px rgba(240, 212, 138, 0.22); }
       50% { transform: scale(1.035); box-shadow: 0 18px 40px rgba(240, 212, 138, 0.45); }
+    }
+    .showcase {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      text-align: left;
+    }
+    .showcase a {
+      display: block;
+      margin-top: 10px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .showcase a span {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-weight: 500;
+      font-size: 0.86rem;
     }
     .overlay {
       position: fixed;
@@ -130,11 +155,13 @@
   </style>
 </head>
 <body>
-  <main class="card">
-    <p class="eyebrow">Minneapolis</p>
-    <h1 id="business-name">The Lotus Restaurant in Minneapolis</h1>
-    <p class="support" id="support-line">Your support keeps us cooking! Tap below to share your experience.</p>
-    <button type="button" class="review" id="review-button">⭐⭐⭐⭐⭐ Leave a Quick 5-Star Review</button>
+  <main class="card" id="panel">
+    <p class="eyebrow" id="eyebrow">JibAuto Systems</p>
+    <h1 id="business-name">JibAuto Systems</h1>
+    <p class="address" id="address" hidden></p>
+    <p class="support" id="support-line">One NFC tap opens the Google review for the restaurant on the counter.</p>
+    <button type="button" class="review" id="review-button" hidden>⭐⭐⭐⭐⭐ Leave a Quick 5-Star Review</button>
+    <ul class="showcase" id="showcase" aria-label="Client review pages"></ul>
   </main>
   <div class="overlay" id="loading-overlay" hidden>
     <div class="loader">
