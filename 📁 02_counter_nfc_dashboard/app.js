@@ -14,7 +14,25 @@ const CLIENTS = [
     name: "Spoon and Stable",
     address: "211 First Street North, Minneapolis, MN 55401",
     reviewUrl: "https://search.google.com/local/writereview?placeid=ChIJpQmgMoQys1IRID1e5YB8eMo",
-    staffPin: "4822"
+    staffPin: "4822",
+    theme: {
+      backgroundColor: "#000000",
+      backgroundAccentColor: "#585244",
+      cardColor: "#221f20",
+      borderColor: "#585244",
+      textColor: "#ffffff",
+      mutedTextColor: "#dedede",
+      accentColor: "#f4f3f1",
+      accentInkColor: "#221f20",
+      buttonGradientStart: "#f4f3f1",
+      buttonGradientEnd: "#dedede",
+      buttonShadowColor: "#f4f3f148",
+      overlayColor: "#221f20e6",
+      telemetryColor: "#000000",
+      keypadColor: "#000000",
+      headingFontWeight: "700",
+      buttonFontWeight: "600"
+    }
   },
   {
     shop: "tale",
@@ -28,7 +46,25 @@ const CLIENTS = [
     name: "Butcher & the Boar",
     address: "901 N 3rd St, Suite 195, Minneapolis, MN 55401",
     reviewUrl: "https://search.google.com/local/writereview?placeid=ChIJe_YyOiUzs1IR0qgYBD0rkUM",
-    staffPin: "4844"
+    staffPin: "4844",
+    theme: {
+      backgroundColor: "#0e0e0e",
+      backgroundAccentColor: "#3e3e3e",
+      cardColor: "#272727",
+      borderColor: "#3e3e3e",
+      textColor: "#f6f6f6",
+      mutedTextColor: "#a9a9a9",
+      accentColor: "#f6f6f6",
+      accentInkColor: "#0e0e0e",
+      buttonGradientStart: "#f6f6f6",
+      buttonGradientEnd: "#e7e7e7",
+      buttonShadowColor: "#f6f6f640",
+      overlayColor: "#0e0e0ee6",
+      telemetryColor: "#0e0e0e",
+      keypadColor: "#0e0e0e",
+      headingFontWeight: "500",
+      buttonFontWeight: "600"
+    }
   },
   {
     shop: "bucheron",
@@ -75,6 +111,53 @@ const pinCancel = document.getElementById("pin-cancel");
 let activeReviewUrl = "";
 let activeClient = null;
 let enteredPin = "";
+
+function applyClientTheme(client) {
+  const rootStyle = document.documentElement.style;
+  const themeColor = document.querySelector('meta[name="theme-color"]');
+  const theme = client && client.theme ? client.theme : null;
+  if (!theme) {
+    rootStyle.removeProperty("--background-color");
+    rootStyle.removeProperty("--background-accent-color");
+    rootStyle.removeProperty("--card-color");
+    rootStyle.removeProperty("--border-color");
+    rootStyle.removeProperty("--text-color");
+    rootStyle.removeProperty("--muted-text-color");
+    rootStyle.removeProperty("--accent-color");
+    rootStyle.removeProperty("--accent-ink-color");
+    rootStyle.removeProperty("--button-gradient-start");
+    rootStyle.removeProperty("--button-gradient-end");
+    rootStyle.removeProperty("--button-shadow-color");
+    rootStyle.removeProperty("--overlay-color");
+    rootStyle.removeProperty("--telemetry-color");
+    rootStyle.removeProperty("--keypad-color");
+    rootStyle.removeProperty("--heading-font-weight");
+    rootStyle.removeProperty("--button-font-weight");
+    if (themeColor) {
+      themeColor.setAttribute("content", "#07080b");
+    }
+    return;
+  }
+  rootStyle.setProperty("--background-color", theme.backgroundColor);
+  rootStyle.setProperty("--background-accent-color", theme.backgroundAccentColor);
+  rootStyle.setProperty("--card-color", theme.cardColor);
+  rootStyle.setProperty("--border-color", theme.borderColor);
+  rootStyle.setProperty("--text-color", theme.textColor);
+  rootStyle.setProperty("--muted-text-color", theme.mutedTextColor);
+  rootStyle.setProperty("--accent-color", theme.accentColor);
+  rootStyle.setProperty("--accent-ink-color", theme.accentInkColor);
+  rootStyle.setProperty("--button-gradient-start", theme.buttonGradientStart);
+  rootStyle.setProperty("--button-gradient-end", theme.buttonGradientEnd);
+  rootStyle.setProperty("--button-shadow-color", theme.buttonShadowColor);
+  rootStyle.setProperty("--overlay-color", theme.overlayColor);
+  rootStyle.setProperty("--telemetry-color", theme.telemetryColor);
+  rootStyle.setProperty("--keypad-color", theme.keypadColor);
+  rootStyle.setProperty("--heading-font-weight", theme.headingFontWeight);
+  rootStyle.setProperty("--button-font-weight", theme.buttonFontWeight);
+  if (themeColor) {
+    themeColor.setAttribute("content", theme.backgroundColor);
+  }
+}
 
 function findClient(shop) {
   for (let index = 0; index < CLIENTS.length; index += 1) {
@@ -208,6 +291,7 @@ function submitPinDigit(digit) {
 function showCorporateOverview() {
   const description = "One NFC tap opens the Google review for the restaurant on the counter.";
   activeClient = null;
+  applyClientTheme(null);
   closePinSheet();
   eyebrow.textContent = "Overview";
   businessName.textContent = "JibAuto Systems";
@@ -239,6 +323,7 @@ function showClient(client) {
   const description = "Tap once to leave a 5-star review for " + client.name + ".";
   const pageUrl = PUBLIC_ORIGIN + "/?shop=" + client.shop;
   activeClient = client;
+  applyClientTheme(client);
   closePinSheet();
   eyebrow.textContent = "Minneapolis";
   businessName.textContent = client.name;
