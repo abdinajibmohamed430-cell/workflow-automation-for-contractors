@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07080b">
+  <title>The Minneapolis Culinary Hub</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #07080b;
+      --card: #12151a;
+      --line: #2a3038;
+      --text: #f7f3ea;
+      --muted: #b7b0a4;
+      --gold: #f0d48a;
+      --ink: #16130d;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px 16px;
+      font-family: "Avenir Next", "Segoe UI", sans-serif;
+      background:
+        radial-gradient(900px 420px at 50% 0%, #2a2418 0%, transparent 58%),
+        var(--bg);
+      color: var(--text);
+    }
+    .card {
+      width: min(420px, 100%);
+      padding: 32px 22px 28px;
+      border-radius: 28px;
+      border: 1px solid var(--line);
+      background: var(--card);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+      text-align: center;
+    }
+    .eyebrow {
+      margin: 0;
+      color: var(--gold);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+    }
+    h1 {
+      margin: 14px 0 10px;
+      font-family: Georgia, "Iowan Old Style", serif;
+      font-size: clamp(1.7rem, 6.5vw, 2.15rem);
+      font-weight: 700;
+      line-height: 1.15;
+    }
+    .support {
+      margin: 0 0 28px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+    .review {
+      width: 100%;
+      min-height: 84px;
+      padding: 18px 16px;
+      border: 0;
+      border-radius: 20px;
+      background: var(--gold);
+      color: var(--ink);
+      font: inherit;
+      font-size: 1.12rem;
+      font-weight: 800;
+      line-height: 1.25;
+      cursor: pointer;
+      box-shadow: 0 12px 28px rgba(240, 212, 138, 0.28);
+      animation: pulse 1.8s ease-in-out infinite;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .review:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 36px rgba(240, 212, 138, 0.38);
+    }
+    .review:focus-visible {
+      outline: 3px solid #fff;
+      outline-offset: 3px;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 12px 28px rgba(240, 212, 138, 0.22); }
+      50% { transform: scale(1.035); box-shadow: 0 18px 40px rgba(240, 212, 138, 0.45); }
+    }
+    .overlay {
+      position: fixed;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      background: rgba(7, 8, 11, 0.88);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+    .overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .loader {
+      width: min(280px, 86vw);
+      text-align: center;
+      transform: translateY(12px);
+      transition: transform 0.35s ease;
+    }
+    .overlay.open .loader { transform: none; }
+    .spinner {
+      width: 46px;
+      height: 46px;
+      margin: 0 auto 14px;
+      border-radius: 50%;
+      border: 3px solid rgba(240, 212, 138, 0.25);
+      border-top-color: var(--gold);
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loader p { margin: 0; color: var(--text); font-weight: 700; }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <p class="eyebrow">Downtown Plaza</p>
+    <h1 id="business-name">The Minneapolis Culinary Hub | Downtown Plaza</h1>
+    <p class="support" id="support-line">Your support keeps us cooking! Tap below to share your experience.</p>
+    <button type="button" class="review" id="review-button">⭐⭐⭐⭐⭐ Leave a Quick 5-Star Review</button>
+  </main>
+  <div class="overlay" id="loading-overlay" hidden>
+    <div class="loader">
+      <div class="spinner" aria-hidden="true"></div>
+      <p>Opening your Google review</p>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

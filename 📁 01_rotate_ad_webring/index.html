@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RotateAd Traffic Webring</title>
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Avenir Next", "Segoe UI", sans-serif; background: #f3efe6; color: #1c1915; }
+    a { color: inherit; }
+    header { padding: 28px 20px 8px; max-width: 1120px; margin: 0 auto; }
+    .mark { margin: 0; letter-spacing: 0.14em; text-transform: uppercase; font-size: 0.78rem; }
+    h1 { margin: 8px 0; font-size: clamp(2rem, 4vw, 3.4rem); line-height: 0.95; }
+    header p { max-width: 62ch; }
+    .buy { display: inline-block; margin: 8px 0 18px; padding: 14px 18px; background: #e23d2b; color: #fffdf8; text-decoration: none; font-weight: 700; border-radius: 999px; }
+    .buy:hover { background: #b9281a; }
+    main { max-width: 1120px; margin: 0 auto; padding: 0 20px 48px; }
+    .matrix { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; }
+    .card { background: #fffdf8; border: 2px solid #1c1915; border-radius: 16px; padding: 12px; transition: transform 0.18s ease, box-shadow 0.18s ease; }
+    .card:hover { transform: translateY(-4px); box-shadow: 6px 8px 0 #1c1915; }
+    .seat { margin: 0 0 8px; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; }
+    .banner { min-height: 108px; border-radius: 12px; padding: 14px; display: flex; flex-direction: column; justify-content: flex-end; color: #fffdf8; }
+    .banner strong { font-size: 1.25rem; line-height: 1.15; }
+    .line { min-height: 2.6em; }
+    .actions { display: flex; gap: 8px; }
+    button, .visit { font: inherit; border-radius: 999px; padding: 8px 12px; border: 2px solid #1c1915; background: #fffdf8; cursor: pointer; text-decoration: none; }
+    .rotate { background: #1c1915; color: #fffdf8; }
+    .landing { margin-top: 18px; padding: 18px; border: 2px solid #1c1915; border-radius: 16px; background: #fffdf8; }
+    .landing[hidden] { display: none; }
+  </style>
+</head>
+<body>
+  <header>
+    <p class="mark">RotateAd</p>
+    <h1>Traffic webring</h1>
+    <p>Twelve seats share one list of sample banners. Click a seat to move it to the next banner and the next landing link. After the last banner, that seat starts again at the top of the list.</p>
+    <a class="buy" href="https://ko-fi.com">Buy a Seat · $5/month</a>
+  </header>
+  <main>
+    <section id="matrix" class="matrix" aria-label="RotateAd Matrix"></section>
+    <section id="landing" class="landing" hidden>
+      <p class="mark">Landing page</p>
+      <h2 id="landing-title"></h2>
+      <p id="landing-copy"></p>
+      <button type="button" id="landing-close">Close</button>
+    </section>
+  </main>
+  <script>
+    const banners = [
+      { title: "Harbor Bread", line: "Morning loaf, baked before seven.", href: "#harbor-bread", tone: "#c4552a" },
+      { title: "North Window Books", line: "A quiet seat and a used novel.", href: "#north-window", tone: "#245c4a" },
+      { title: "Lamp and Co.", line: "Desk lamps for small rooms.", href: "#lamp-and-co", tone: "#1f3d6e" },
+      { title: "Cedar Soap", line: "Three bars, wrapped in paper.", href: "#cedar-soap", tone: "#6e4b2a" },
+      { title: "River Radio", line: "Tonight's local music hour.", href: "#river-radio", tone: "#7a2f45" },
+      { title: "Field Notes Cafe", line: "One pastry, one ceramic cup.", href: "#field-notes", tone: "#3d5c2a" },
+      { title: "Blue Stair Studio", line: "Drawing class on Thursday.", href: "#blue-stair", tone: "#2a4e6e" },
+      { title: "Market Wool", line: "Scarves from this season's yarn.", href: "#market-wool", tone: "#6e3828" },
+      { title: "Little Pier Bikes", line: "Tune-ups while you wait.", href: "#little-pier", tone: "#1d4d45" },
+      { title: "Paper Kite", line: "Cards printed on the corner.", href: "#paper-kite", tone: "#5c3d73" },
+      { title: "Gold Finch Plants", line: "A plant that likes a dim room.", href: "#gold-finch", tone: "#3f5c28" },
+      { title: "Sunday Bowl", line: "Soup from two until sold out.", href: "#sunday-bowl", tone: "#8a3d22" },
+      { title: "Oak Room Records", line: "Used albums, one dollar bin.", href: "#oak-room", tone: "#243044" },
+      { title: "Kin Tailor", line: "Hems finished the same day.", href: "#kin-tailor", tone: "#5a4032" },
+      { title: "West Lantern", line: "A walk after the shop lights come on.", href: "#west-lantern", tone: "#6a341f" },
+      { title: "Moss and Tin", line: "Camping cups for the weekend.", href: "#moss-and-tin", tone: "#2f4a3c" }
+    ];
+    const seats = Array.from({ length: 12 }, function (_, index) { return index; });
+    const matrix = document.getElementById("matrix");
+    const landing = document.getElementById("landing");
+
+    function draw() {
+      matrix.innerHTML = seats.map(function (bannerIndex, seat) {
+        const ad = banners[bannerIndex];
+        const number = String(seat + 1).padStart(2, "0");
+        return '<article class="card"><p class="seat">Seat ' + number + '</p><div class="banner" style="background:' + ad.tone + '"><strong>' + ad.title + '</strong></div><p class="line">' + ad.line + '</p><div class="actions"><button type="button" class="rotate" data-rotate="' + seat + '">Rotate</button><a class="visit" href="' + ad.href + '" data-open="' + seat + '">Open link</a></div></article>';
+      }).join("");
+    }
+
+    matrix.addEventListener("click", function (event) {
+      const rotate = event.target.closest("[data-rotate]");
+      if (rotate) {
+        const seat = Number(rotate.getAttribute("data-rotate"));
+        seats[seat] = (seats[seat] + 1) % banners.length;
+        draw();
+        return;
+      }
+      const open = event.target.closest("[data-open]");
+      if (!open) return;
+      event.preventDefault();
+      const ad = banners[seats[Number(open.getAttribute("data-open"))]];
+      document.getElementById("landing-title").textContent = ad.title;
+      document.getElementById("landing-copy").textContent = ad.line + " This sample landing page stays on this screen.";
+      landing.hidden = false;
+      landing.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    });
+
+    document.getElementById("landing-close").addEventListener("click", function () {
+      landing.hidden = true;
+    });
+
+    draw();
+  </script>
+</body>
+</html>
