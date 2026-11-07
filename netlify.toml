@@ -1,0 +1,28 @@
+[build]
+  publish = "📁 02_counter_nfc_dashboard"
+
+# The site root is the 1-tap review dashboard.
+[[redirects]]
+  from = "/"
+  to = "/index.html"
+  status = 200
+
+# A path with no file still opens the review page.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# www.jibauto.net follows the apex domain.
+[[redirects]]
+  from = "https://www.jibauto.net/*"
+  to = "https://jibauto.net/:splat"
+  status = 301
+  force = true
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Cache-Control = "public, max-age=0, must-revalidate"
