@@ -3,169 +3,149 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#07080b">
-  <meta name="description" content="JibAuto Systems opens a restaurant's Google review from one NFC tap.">
+  <meta name="theme-color" content="#FDFBF7">
+  <meta name="description" content="JibAuto Systems opens a shop's Google review from one NFC tap.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="jibauto.net">
   <meta property="og:title" content="JibAuto Systems">
-  <meta property="og:description" content="One NFC tap opens the Google review for the restaurant on the counter.">
+  <meta property="og:description" content="One NFC tap opens the Google review for the shop on the counter.">
   <meta property="og:url" content="https://jibauto.net">
   <link rel="canonical" href="https://jibauto.net">
   <title>JibAuto Systems</title>
   <style>
     :root {
-      color-scheme: dark;
-      --background-color: #07080b;
-      --background-accent-color: #2a2418;
-      --card-color: #12151a;
-      --border-color: #2a3038;
-      --text-color: #f7f3ea;
-      --muted-text-color: #b7b0a4;
-      --accent-color: #f0d48a;
-      --accent-ink-color: #16130d;
-      --button-gradient-start: #f0d48a;
-      --button-gradient-end: #e7c56e;
-      --button-shadow-color: #f0d48a47;
-      --overlay-color: #07080be0;
-      --telemetry-color: #0d1015;
-      --keypad-color: #1c2128;
-      --heading-font-weight: 700;
-      --button-font-weight: 800;
+      color-scheme: light;
+      --background-color: #FDFBF7;
+      --background-accent-color: #F6E8E4;
+      --card-color: #FFFcf8;
+      --border-color: #EAA9A9;
+      --sage-color: #E4EBE0;
+      --sage-ink-color: #6E7F68;
+      --text-color: #3C332E;
+      --muted-text-color: #7A6E68;
+      --accent-color: #EAA9A9;
+      --accent-ink-color: #3C332E;
+      --button-gradient-start: #F6D2D2;
+      --button-gradient-end: #EAA9A9;
+      --button-shadow-color: #EAA9A966;
+      --overlay-color: #3C332E99;
+      --heading-font-weight: 600;
+      --button-font-weight: 600;
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
       min-height: 100vh;
-      display: grid;
-      place-items: center;
-      padding: 24px 16px;
-      font-family: "Avenir Next", "Segoe UI", sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 28px 16px 40px;
+      font-family: "Iowan Old Style", Palatino, "Palatino Linotype", Georgia, serif;
       background:
-        radial-gradient(900px 420px at 50% 0%, var(--background-accent-color) 0%, transparent 58%),
+        radial-gradient(720px 280px at 50% 0%, var(--background-accent-color) 0%, transparent 70%),
         var(--background-color);
       color: var(--text-color);
     }
+    .bulletin {
+      width: min(420px, 100%);
+      margin: 0;
+      padding: 18px 20px;
+      border: 1px solid var(--border-color);
+      border-radius: 72px 72px 22px 22px;
+      background: var(--sage-color);
+      color: var(--sage-ink-color);
+      text-align: center;
+      line-height: 1.45;
+      font-size: 0.98rem;
+    }
+    .bulletin[hidden] { display: none; }
     .card {
       width: min(420px, 100%);
-      padding: 32px 22px 28px;
-      border-radius: 28px;
+      padding: 36px 24px 28px;
       border: 1px solid var(--border-color);
+      border-radius: 150px 150px 32px 32px;
       background: var(--card-color);
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+      box-shadow: 0 18px 40px #3C332E14;
       text-align: center;
     }
     .eyebrow {
       margin: 0;
-      color: var(--accent-color);
-      letter-spacing: 0.18em;
+      color: var(--sage-ink-color);
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       font-size: 0.72rem;
     }
     h1 {
       margin: 14px 0 10px;
-      font-family: Georgia, "Iowan Old Style", serif;
-      font-size: clamp(1.7rem, 6.5vw, 2.15rem);
       font-weight: var(--heading-font-weight);
+      font-size: clamp(1.8rem, 7vw, 2.3rem);
       line-height: 1.15;
     }
     .address,
     .support {
       margin: 0;
       color: var(--muted-text-color);
-      line-height: 1.45;
+      line-height: 1.5;
     }
     .address { margin-bottom: 8px; }
-    .support { margin-bottom: 28px; }
+    .support { margin-bottom: 26px; }
     .review {
       width: 100%;
-      min-height: 84px;
-      padding: 18px 16px;
+      min-height: 72px;
+      padding: 16px 18px;
       border: 0;
-      border-radius: 20px;
+      border-radius: 999px;
       background-color: var(--accent-color);
       background-image: linear-gradient(180deg, var(--button-gradient-start) 0%, var(--button-gradient-end) 100%);
       color: var(--accent-ink-color);
       font: inherit;
-      font-size: 1.12rem;
+      font-size: 1.05rem;
       font-weight: var(--button-font-weight);
-      line-height: 1.25;
+      line-height: 1.3;
       cursor: pointer;
-      box-shadow: 0 12px 28px var(--button-shadow-color);
-      animation: pulse 1.8s ease-in-out infinite;
+      box-shadow: 0 10px 24px var(--button-shadow-color);
     }
     .review:hover {
       background-image: linear-gradient(180deg, var(--button-gradient-end) 0%, var(--button-gradient-start) 100%);
     }
-    .review:focus-visible {
-      outline: 3px solid #fff;
+    .review:focus-visible,
+    .voucher-continue:focus-visible,
+    .voucher-close:focus-visible,
+    .showcase a:focus-visible {
+      outline: 3px solid var(--sage-ink-color);
       outline-offset: 3px;
     }
-    .review:disabled {
-      cursor: progress;
-      animation: none;
+    .review[hidden] { display: none; }
+    .showcase {
+      margin: 8px 0 0;
+      padding: 0;
+      list-style: none;
+      text-align: left;
     }
-    .review[hidden],
-    .stamp[hidden],
-    .telemetry[hidden] { display: none; }
-    .telemetry {
-      margin: 0 0 18px;
-      padding: 14px 14px 12px;
-      border-radius: 18px;
-      border: 1px solid var(--border-color);
-      background: var(--telemetry-color);
-    }
-    .telemetry-label,
-    .stamp-label {
-      margin: 0;
-      color: var(--muted-text-color);
-      font-size: 0.78rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-    .telemetry-count {
-      margin: 4px 0 8px;
-      font-family: Georgia, "Iowan Old Style", serif;
-      font-size: 2.4rem;
-      font-weight: var(--heading-font-weight);
-      line-height: 1;
-    }
-    .stamps {
-      display: flex;
-      justify-content: center;
-      gap: 6px;
-      margin-top: 8px;
-    }
-    .stamps i {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      border: 1px solid var(--accent-color);
-      background: transparent;
-    }
-    .stamps i.filled { background: var(--accent-color); }
-    .stamp {
-      width: 100%;
-      margin-top: 12px;
-      min-height: 56px;
+    .showcase a {
+      display: block;
+      margin-top: 10px;
       padding: 14px 16px;
-      border-radius: 16px;
-      border: 1px solid var(--accent-color);
-      background: transparent;
-      color: var(--accent-color);
-      font: inherit;
-      font-weight: var(--button-font-weight);
-      cursor: pointer;
+      border: 1px solid var(--border-color);
+      border-radius: 28px 28px 12px 12px;
+      background: var(--sage-color);
+      color: var(--text-color);
+      text-decoration: none;
+      font-weight: 600;
     }
-    .stamp:focus-visible,
-    .pin-keys button:focus-visible,
-    .pin-cancel:focus-visible {
-      outline: 3px solid #fff;
-      outline-offset: 3px;
+    .showcase a span {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted-text-color);
+      font-weight: 500;
+      font-size: 0.88rem;
     }
-    .pin-sheet {
+    .voucher-sheet {
       position: fixed;
       inset: 0;
-      z-index: 30;
+      z-index: 20;
       display: flex;
       align-items: flex-end;
       justify-content: center;
@@ -174,155 +154,65 @@
       pointer-events: none;
       transition: opacity 0.3s ease;
     }
-    .pin-sheet.open {
+    .voucher-sheet.open {
       opacity: 1;
       pointer-events: auto;
     }
-    .pin-panel {
-      width: min(420px, 100%);
-      padding: 22px 18px 28px;
-      border-radius: 24px 24px 0 0;
+    .voucher-panel {
+      width: min(440px, 100%);
+      margin: 0;
+      padding: 28px 22px 32px;
       border: 1px solid var(--border-color);
+      border-radius: 36px 36px 0 0;
       background: var(--card-color);
+      color: var(--text-color);
+      text-align: center;
       transform: translateY(110%);
       transition: transform 0.35s ease;
     }
-    .pin-sheet.open .pin-panel { transform: none; }
-    .pin-panel h2 {
-      margin: 0;
-      font-size: 1.25rem;
+    .voucher-sheet.open .voucher-panel { transform: none; }
+    .voucher-copy {
+      margin: 0 0 18px;
+      font-size: 1.15rem;
+      line-height: 1.45;
     }
-    .pin-status {
-      min-height: 2.6em;
-      margin: 8px 0 14px;
-      color: var(--muted-text-color);
-    }
-    .pin-dots {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-    .pin-dots i {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      border: 1px solid var(--accent-color);
-    }
-    .pin-dots i.filled { background: var(--accent-color); }
-    .pin-keys {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-    }
-    .pin-keys button,
-    .pin-cancel {
+    .voucher-continue,
+    .voucher-close {
+      width: 100%;
       min-height: 52px;
-      border: 0;
-      border-radius: 14px;
-      background: var(--keypad-color);
-      color: var(--text-color);
+      border-radius: 999px;
       font: inherit;
-      font-size: 1.2rem;
-      font-weight: 700;
+      font-weight: var(--button-font-weight);
       cursor: pointer;
     }
-    .pin-cancel {
-      width: 100%;
+    .voucher-continue {
+      border: 0;
+      background: var(--accent-color);
+      color: var(--accent-ink-color);
+    }
+    .voucher-close {
       margin-top: 8px;
-      color: var(--muted-text-color);
-      font-size: 1rem;
-    }
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); box-shadow: 0 12px 28px var(--button-shadow-color); }
-      50% { transform: scale(1.035); box-shadow: 0 18px 40px var(--button-shadow-color); }
-    }
-    .showcase {
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      text-align: left;
-    }
-    .showcase a {
-      display: block;
-      margin-top: 10px;
-      padding: 12px 14px;
-      border-radius: 14px;
       border: 1px solid var(--border-color);
-      color: var(--text-color);
-      text-decoration: none;
-      font-weight: 700;
+      background: var(--sage-color);
+      color: var(--sage-ink-color);
     }
-    .showcase a span {
-      display: block;
-      margin-top: 2px;
-      color: var(--muted-text-color);
-      font-weight: 500;
-      font-size: 0.86rem;
-    }
-    .overlay {
-      position: fixed;
-      inset: 0;
-      display: grid;
-      place-items: center;
-      background: var(--overlay-color);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.35s ease;
-    }
-    .overlay.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    .loader {
-      width: min(280px, 86vw);
-      text-align: center;
-      transform: translateY(12px);
-      transition: transform 0.35s ease;
-    }
-    .overlay.open .loader { transform: none; }
-    .spinner {
-      width: 46px;
-      height: 46px;
-      margin: 0 auto 14px;
-      border-radius: 50%;
-      border: 3px solid var(--button-shadow-color);
-      border-top-color: var(--accent-color);
-      animation: spin 0.8s linear infinite;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .loader p { margin: 0; color: var(--text-color); font-weight: 700; }
   </style>
 </head>
 <body>
+  <p class="bulletin" id="bulletin" hidden></p>
   <main class="card" id="panel">
     <p class="eyebrow" id="eyebrow">JibAuto Systems</p>
     <h1 id="business-name">JibAuto Systems</h1>
     <p class="address" id="address" hidden></p>
-    <p class="support" id="support-line">One NFC tap opens the Google review for the restaurant on the counter.</p>
-    <section class="telemetry" id="telemetry" hidden>
-      <p class="telemetry-label">Check-ins on this device</p>
-      <p class="telemetry-count" id="checkin-count">0</p>
-      <p class="stamp-label" id="stamp-label">Verified stamps</p>
-      <div class="stamps" id="stamp-row" aria-hidden="true"></div>
-    </section>
-    <button type="button" class="review" id="review-button" hidden>⭐⭐⭐⭐⭐ Leave a Quick 5-Star Review</button>
-    <button type="button" class="stamp" id="stamp-button" hidden>Tap to Verify Stamp</button>
-    <ul class="showcase" id="showcase" aria-label="Client review pages"></ul>
+    <p class="support" id="support-line">One NFC tap opens the Google review for the shop on the counter.</p>
+    <button type="button" class="review" id="review-button" hidden>Leave a Google review</button>
+    <ul class="showcase" id="showcase" aria-label="Shop review pages"></ul>
   </main>
-  <div class="pin-sheet" id="pin-sheet" hidden>
-    <div class="pin-panel" role="dialog" aria-modal="true" aria-labelledby="pin-title">
-      <h2 id="pin-title">Staff PIN</h2>
-      <p class="pin-status" id="pin-status" aria-live="polite">Ask the cashier to enter the 4-digit code.</p>
-      <div class="pin-dots" id="pin-dots" aria-hidden="true"></div>
-      <div class="pin-keys" id="pin-keys"></div>
-      <button type="button" class="pin-cancel" id="pin-cancel">Cancel</button>
-    </div>
-  </div>
-  <div class="overlay" id="loading-overlay" hidden>
-    <div class="loader">
-      <div class="spinner" aria-hidden="true"></div>
-      <p>Opening your Google review</p>
+  <div class="voucher-sheet" id="voucher-sheet" hidden>
+    <div class="voucher-panel" role="dialog" aria-modal="true" aria-labelledby="voucher-copy">
+      <p class="voucher-copy" id="voucher-copy"></p>
+      <button type="button" class="voucher-continue" id="voucher-continue">Continue to your Google review</button>
+      <button type="button" class="voucher-close" id="voucher-close">Close</button>
     </div>
   </div>
   <script src="app.js"></script>
