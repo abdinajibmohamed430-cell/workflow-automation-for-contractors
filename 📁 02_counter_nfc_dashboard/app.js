@@ -79,6 +79,31 @@ const CLIENTS = [
     address: "201 SE Main St, Minneapolis, MN 55414",
     reviewUrl: "https://search.google.com/local/writereview?placeid=ChIJyaGiHTUts1IRFw_oS8M8AL8",
     staffPin: "4866"
+  },
+  {
+    shop: "mawdah",
+    name: "Mawdah Cafe | Minneapolis Hub",
+    address: "505 E Lake St, Minneapolis, MN 55408",
+    reviewUrl: "https://google.com",
+    staffPin: "4877",
+    theme: {
+      backgroundColor: "#140e12",
+      backgroundAccentColor: "#4a2030",
+      cardColor: "#24161c",
+      borderColor: "#f4c2d0",
+      textColor: "#fff7f9",
+      mutedTextColor: "#e7c3cf",
+      accentColor: "#ff4f93",
+      accentInkColor: "#1a1014",
+      buttonGradientStart: "#ff7aaf",
+      buttonGradientEnd: "#e21870",
+      buttonShadowColor: "#ff4f934d",
+      overlayColor: "#140e12e6",
+      telemetryColor: "#1c1218",
+      keypadColor: "#1a1014",
+      headingFontWeight: "700",
+      buttonFontWeight: "800"
+    }
   }
 ];
 
